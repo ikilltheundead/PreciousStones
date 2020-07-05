@@ -477,15 +477,18 @@ public final class CommandManager implements CommandExecutor {
                         return true;
                     } else if (cmd.equalsIgnoreCase(ChatHelper.format("commandTake")) && plugin.getPermissionsManager().has(player, "preciousstones.benefit.take") && hasplayer) {
                         Field field = plugin.getForceFieldManager().getOneOwnedField(block, player, FieldFlag.ALL);
+                        if(field.isOwner(player.getName())) {
+                            if (field != null) {
+                                boolean taken = field.take(player);
 
-                        if (field != null) {
-                            boolean taken = field.take(player);
-
-                            if (taken) {
-                                ChatHelper.send(sender, "taken", field.getType(), field.getCoords());
+                                if (taken) {
+                                    ChatHelper.send(sender, "taken", field.getType(), field.getCoords());
+                                }
+                            } else {
+                                plugin.getCommunicationManager().showNotFound(player);
                             }
-                        } else {
-                            plugin.getCommunicationManager().showNotFound(player);
+                        }else {
+                            player.sendMessage("You are not the owner of this field!");
                         }
                         return true;
 
