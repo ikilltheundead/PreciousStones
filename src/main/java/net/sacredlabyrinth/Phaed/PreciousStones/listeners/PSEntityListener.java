@@ -16,6 +16,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.*;
+import org.bukkit.entity.minecart.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -212,7 +213,7 @@ public class PSEntityListener implements Listener {
 			}
 		}
 
-		if (event.getEntity() instanceof TNTPrimed || event.getEntity() instanceof Minecart) {
+		if (event.getEntity() instanceof TNTPrimed || event.getEntity() instanceof ExplosiveMinecart) {
 			if (plugin.getForceFieldManager().hasSourceField(event.getEntity().getLocation(), FieldFlag.PREVENT_TNT_EXPLOSIONS)) {
 				event.setCancelled(true);
 			}
